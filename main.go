@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
+func home(w http.ResponseWriter, r *http.Request) {
 	n, err := fmt.Fprintf(w, "This is the home page")
 	if err != nil {
 		fmt.Println(err)
@@ -15,7 +15,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func About(w http.ResponseWriter, r *http.Request) {
+func about(w http.ResponseWriter, r *http.Request) {
 	n, err := fmt.Fprintf(w, "This is about page")
 	if err != nil {
 		fmt.Println(err)
@@ -24,7 +24,7 @@ func About(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Sum(w http.ResponseWriter, r *http.Request) {
+func sum(w http.ResponseWriter, r *http.Request) {
 	x, err := strconv.Atoi(r.URL.Query().Get("x"))
 	if err != nil {
 		fmt.Fprintf(w, "Error occurred while converting x")
@@ -47,9 +47,9 @@ func AddValues(x, y int) int {
 }
 
 func main() {
-	http.HandleFunc("/", Home)
-	http.HandleFunc("/about", About)
-	http.HandleFunc("/sum", Sum)
+	http.HandleFunc("/", home)
+	http.HandleFunc("/about", about)
+	http.HandleFunc("/sum", sum)
 	fmt.Println("Listening on port 3000")
 	_ = http.ListenAndServe(":3000", nil)
 }
