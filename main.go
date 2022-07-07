@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +25,15 @@ func About(w http.ResponseWriter, r *http.Request) {
 }
 
 func Sum(w http.ResponseWriter, r *http.Request) {
-	sum := AddValues(2, 3)
+	x, err := strconv.Atoi(r.URL.Query().Get("x"))
+	if err != nil {
+		fmt.Fprintf(w, "Error occurred while converting x")
+	}
+	y, err := strconv.Atoi(r.URL.Query().Get("y"))
+	if err != nil {
+		fmt.Fprintf(w, "Error occurred while converting y")
+	}
+	sum := AddValues(x, y)
 	n, err := fmt.Fprintf(w, "The sum is %d", sum)
 	if err != nil {
 		fmt.Println(err)
