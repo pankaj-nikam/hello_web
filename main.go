@@ -6,6 +6,8 @@ import (
 	"strconv"
 )
 
+const portNumber = ":3000"
+
 func home(w http.ResponseWriter, r *http.Request) {
 	n, err := fmt.Fprintf(w, "This is the home page")
 	if err != nil {
@@ -50,6 +52,6 @@ func main() {
 	http.HandleFunc("/", home)
 	http.HandleFunc("/about", about)
 	http.HandleFunc("/sum", sum)
-	fmt.Println("Listening on port 3000")
-	_ = http.ListenAndServe(":3000", nil)
+	fmt.Println("Listening on port", portNumber)
+	_ = http.ListenAndServe(portNumber, nil)
 }
