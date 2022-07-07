@@ -34,7 +34,7 @@ func sum(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Error occurred while converting y")
 	}
 	sum := AddValues(x, y)
-	n, err := fmt.Fprintf(w, "The sum is %d", sum)
+	n, err := fmt.Fprintf(w, "The sum of %d and %d is %d", x, y, sum)
 	if err != nil {
 		fmt.Println(err)
 	} else {
