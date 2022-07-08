@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/pankaj-nikam/hello_web/cmd/pkg/handlers"
+	"github.com/pankaj-nikam/hello_web/pkg/handlers"
 )
 
 const portNumber = ":3000"
