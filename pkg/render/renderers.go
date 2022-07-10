@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/pankaj-nikam/hello_web/pkg/config"
+	"github.com/pankaj-nikam/hello_web/pkg/models"
 )
 
 var app *config.AppConfig
@@ -17,7 +18,11 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, templatePath string) {
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
+func RenderTemplate(w http.ResponseWriter, templatePath string, data *models.TemplateData) {
 	var tc map[string]*template.Template
 
 	if app.UseCache {
@@ -34,7 +39,10 @@ func RenderTemplate(w http.ResponseWriter, templatePath string) {
 	}
 
 	buf := new(bytes.Buffer)
-	err := tmpl.Execute(buf, nil)
+
+	data = AddDefaultData(data)
+
+	err := tmpl.Execute(buf, data)
 	if err != nil {
 		log.Println(err)
 	}

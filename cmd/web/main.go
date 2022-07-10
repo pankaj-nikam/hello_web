@@ -21,7 +21,7 @@ func main() {
 
 	app.TemplateCache = tc
 
-	app.UseCache = false
+	//app.UseCache = false
 
 	repo := handlers.NewRepo(&app)
 
