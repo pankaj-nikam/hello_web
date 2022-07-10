@@ -21,7 +21,7 @@ func main() {
 
 	app.TemplateCache = tc
 
-	//app.UseCache = false
+	app.UseCache = true
 
 	repo := handlers.NewRepo(&app)
 
@@ -29,8 +29,13 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	http.HandleFunc("/", handlers.Repo.Home)
-	http.HandleFunc("/about", handlers.Repo.About)
 	fmt.Println("Listening on port", portNumber)
-	_ = http.ListenAndServe(portNumber, nil)
+
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	log.Fatal(err)
 }
